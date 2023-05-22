@@ -103,19 +103,19 @@ const uint8_t mapS[8][4][16]=
     }
 };
 
-uint64_t initialPermutation(uint64_t inputKey){
+uint64_t initialPermutation(uint64_t input){
     uint64_t output=0;    
     for(int i=0; i<64; i++){
-        uint64_t bit=(inputKey >> permutePosition[i]) & 1;
+        uint64_t bit=(input >> permutePosition[i]) & 1;
         output = output | (bit << i);
     }
     return output;
 }
 
-uint64_t inversePermutation(uint64_t inputKey){
+uint64_t inversePermutation(uint64_t input){
     uint64_t output=0;
     for(int i=0; i<64; i++){
-        uint64_t bit=(inputKey >> inversePermutePosition[i]) & 1;
+        uint64_t bit=(input >> inversePermutePosition[i]) & 1;
         output= output | (bit << i);
     }
     return output;
@@ -157,5 +157,19 @@ uint32_t functionF(uint32_t R, uint64_t key){
     out = out ^ key;
     out = funcS(out);
     out = funcP(out);
+    return out;
+}
+
+uint64_t encrypt(uint64_t plain_text, uint64_t key){
+    uint32_t left = initialPermutation(plain_text)>>32;
+    uint32_t right = initialPermutation(plain_text);
+    for(int i=1; i<17; i++){
+        uint32_t temp = right;
+        right = functionF(right, keySchedule(i, key))^left;
+        left = temp;
+    }
+    uint64_t out= right;
+    out= (out<<32) | left;
+    out = inversePermutation(out);
     return out;
 }

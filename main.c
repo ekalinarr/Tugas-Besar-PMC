@@ -4,9 +4,13 @@
 
 int main(){
 
-    uint32_t R = 0xdefabcd9;
-    uint64_t key = 0x0000123456789abc;
-    uint64_t out=functionF(R, key);
-    printf("%llx", out);
+    uint64_t plain = 0xabcdef1234567890;
+    uint64_t key = 0xabcdabcdabcdabcd;
+    uint64_t cipher=encrypt(plain, key);
+
+    printf("Plain text: %llx\n", plain);
+    printf("Cipher text: %llx\n", cipher);
+    printf("\ndecrypt: %llx", encrypt(cipher, key));
+
     return 0;
 }
