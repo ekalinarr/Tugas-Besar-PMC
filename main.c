@@ -4,11 +4,9 @@
 
 int main(){
 
-    uint64_t  in= 0x0123456789abcdef;
-    uint64_t out = initialPermutation(in);
-    printf("%llx\n", out);
-    out = inversePermutation(out);
-    printf("%llx\n", out);
-
+    uint32_t R = 0xdefabcd9;
+    uint64_t key = 0x0000123456789abc;
+    uint64_t out=functionF(R, key);
+    printf("%llx", out);
     return 0;
 }
