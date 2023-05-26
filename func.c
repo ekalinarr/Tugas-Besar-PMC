@@ -173,3 +173,39 @@ uint64_t encrypt(uint64_t plain_text, uint64_t key){
     out = inversePermutation(out);
     return out;
 }
+
+// PASTIIN LAGI XIXIXIXIXIXIXI
+// Generate key
+uint64_t generateRandomUint64() {
+    uint64_t randomValue = 0;
+    for (int i = 0; i < 8; i++) {
+        randomValue = (randomValue << 8) | (rand() & 0xFF);
+    }
+    return randomValue;
+}
+
+// Ubah string ke unsigned
+uint64_t stringToUnsigned64BitInteger(const char* str) {
+    return strtoull(str, NULL, 0);
+}
+
+// convert uint64_t
+char* uint64ToString(uint64_t value) {
+    uint64_t temp = value;
+    int length = 0;
+    do {
+        length++;
+        temp /= 10;
+    } while (temp > 0);
+
+    char* str = (char*)malloc((length + 1) * sizeof(char));
+
+    str[length] = '\0';
+    do {
+        length--;
+        str[length] = '0' + (value % 10);
+        value /= 10;
+    } while (value > 0);
+
+    return str;
+}
