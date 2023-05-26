@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <time.h>
+
+uint64_t generateUnsigned64BitInteger() {
+    uint64_t randomValue = 0;
+    srand(time(NULL));  // Initialize the random number generator with the current time
+    
+    // Generate 8 random bytes and combine them into a 64-bit unsigned integer
+    for (int i = 0; i < 8; i++) {
+        uint64_t byte = (uint64_t)rand() % 256;
+        randomValue = (randomValue << 8) | byte;
+    }
+    
+    return randomValue;
+}
