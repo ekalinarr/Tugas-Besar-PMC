@@ -176,12 +176,22 @@ uint64_t encrypt(uint64_t plain_text, uint64_t key){
 
 // PASTIIN LAGI XIXIXIXIXIXIXI
 // Generate key
-uint64_t generateRandomUint64() {
-    uint64_t randomValue = 0;
+uint64_t generate_key_uint64(uint64_t input) {
+    uint64_t key = input % (uint64_t)(pow(26, 8));
+    return key;
+}
+
+uint64_t generate_key_int(int input1, int input2, int input3, int input4, int input5, int input6, int input7, int input8) {
+    int inputs[] = {input1, input2, input3, input4, input5, input6, input7, input8};
+    uint64_t key = 0;
     for (int i = 0; i < 8; i++) {
-        randomValue = (randomValue << 8) | (rand() & 0xFF);
+        if (inputs[i] < 1 || inputs[i] > 26) {
+            printf("Input integers must be in the range 1 to 26.\n");
+            return 0;
+        }
+        key = key * 26 + (inputs[i] - 1);
     }
-    return randomValue;
+    return key;
 }
 
 // Ubah string ke unsigned
